@@ -1,0 +1,12 @@
+<br>
+<a href="{% url 'api_viewer:events_competition' 10932509 %}">Premier League</a>
+<br>
+
+{% for event_type in event_types %}
+
+<a href="{% url 'api_viewer:events' event_type|get_item:'eventType'|get_item:'id' %}">
+{{ event_type|get_item:'eventType'|get_item:'name' }}
+</a> - {{ event_type|get_item:'marketCount' }}
+<br>
+
+{% endfor %}

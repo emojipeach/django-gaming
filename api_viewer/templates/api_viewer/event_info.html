@@ -1,0 +1,10 @@
+{% for market in event_info %}
+
+<a href="{% url 'api_viewer:market_info' market|get_item:'marketId' %}">Market info for {{ market|get_item:'marketName' }}</a>
+
+{{ market|get_item:'event'|get_item:'name' }}
+<br>
+
+{{ market }}<br><br>
+
+{% endfor %}

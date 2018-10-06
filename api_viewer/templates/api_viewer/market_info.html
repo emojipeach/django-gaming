@@ -1,0 +1,4 @@
+{{ market_info }}
+
+<a href="{% url 'api_viewer:market_book' market_info|get_item:'marketId' %}">Market book for {{ market_info|get_item:'marketName' }}</a>
+<br>

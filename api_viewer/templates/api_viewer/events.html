@@ -1,0 +1,8 @@
+{% for event in events %}
+
+{{ event }}<br>
+
+<a href="{% url 'api_viewer:event_info' event|get_item:'id' %}">Event info for {{ event|get_item:'name' }}</a>
+
+<br>
+{% endfor %}
