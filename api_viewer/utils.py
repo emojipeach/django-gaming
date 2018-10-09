@@ -73,7 +73,7 @@ def list_events_competition_id(comp_id):
     original = []
     for api_result in api_results:
         original.append(api_result['event'])
-    result = sorted(original, key=itemgetter('openDate')) 
+    result = sorted(original, key=itemgetter('openDate', 'name')) 
     return result
 
 def list_competitions_text_search(stringy):

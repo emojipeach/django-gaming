@@ -14,6 +14,7 @@ class Market(models.Model):
     market_id = models.FloatField(unique=True)
     event_id = models.IntegerField()
     country = models.CharField(max_length=10)
+    sport = models.CharField(max_length=50)
     competition_name = models.CharField(max_length=50)
     event_name = models.CharField(max_length=50)
     market_name = models.CharField(max_length=50)

@@ -16,6 +16,7 @@ def add_market(request, market_id):
         market.market_id = market_id
         market.event_id = market_info['event']['id']
         market.country = market_info['event']['countryCode']
+        market.sport = market_info['eventType']['name']
         market.competition_name = market_info['competition']['name']
         market.event_name = market_info['event']['name']
         market.market_name = market_info['marketName']
