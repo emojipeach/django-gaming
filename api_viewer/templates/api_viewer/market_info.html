@@ -1,4 +1,13 @@
+{% extends "markets/layout.html" %}
+
+{% block content %}
+
 {{ market_info }}
 
 <a href="{% url 'api_viewer:market_book' market_info|get_item:'marketId' %}">Market book for {{ market_info|get_item:'marketName' }}</a>
 <br>
+
+<a href="{% url 'markets:add_market' market_info|get_item:'marketId' %}">Add market {{ market_info|get_item:'marketName' }}</a>
+<br>
+
+{% endblock %}

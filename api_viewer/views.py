@@ -8,8 +8,8 @@ from api_viewer.utils import list_event_info
 from api_viewer.utils import list_event_types
 from api_viewer.utils import list_events
 from api_viewer.utils import list_events_competition_id
+from api_viewer.utils import list_full_market_info
 from api_viewer.utils import list_market_book
-from api_viewer.utils import list_market_info
 
 
 @register.filter
@@ -40,12 +40,7 @@ def view_event_info(request, event_id):
     return render(request, 'api_viewer/event_info.html', context)
 
 def view_market_info(request, market_id):
-    market_book = list_market_book(market_id)
-    market_info = list_market_info(market_id)
-    # Now take latestOdds from market_book and add it to market_info
-    for i in range(len(market_info['runners'])):
-        if market_info['runners'][i]['selectionId'] == market_book['runners'][i]['selectionId']:
-            market_info['runners'][i]['latestOdds'] = market_book['runners'][i]['lastPriceTraded']
+    market_info = list_full_market_info(market_id)
     context = {
         'market_info': market_info,
         }

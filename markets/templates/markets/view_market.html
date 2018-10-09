@@ -1,0 +1,18 @@
+{% extends "markets/layout.html" %}
+
+{% block content %}
+
+{{ market }}
+<br>
+Last updated: {{ market.last_updated }}
+<br>
+
+<br>
+
+{% for runner in runners %}
+  {{ runner.selection_name }} - 
+  {{ runner.latest_odds }}
+  <br>
+{% endfor %}
+
+{% endblock %}

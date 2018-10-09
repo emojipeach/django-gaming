@@ -1,3 +1,7 @@
+{% extends "markets/layout.html" %}
+
+{% block content %}
+
 {% for event in events %}
 
 {{ event }}<br>
@@ -6,3 +10,5 @@
 
 <br>
 {% endfor %}
+
+{% endblock %}

@@ -128,6 +128,15 @@ def list_market_book(market_id):
     result = result[0]
     return result
 
+def list_full_market_info(market_id):
+    market_book = list_market_book(market_id)
+    market_info = list_market_info(market_id)
+    # Now take latestOdds from market_book and add it to market_info
+    for i in range(len(market_info['runners'])):
+        if market_info['runners'][i]['selectionId'] == market_book['runners'][i]['selectionId']:
+            market_info['runners'][i]['latestOdds'] = market_book['runners'][i]['lastPriceTraded']
+    return market_info
+
 # print(list_event_types())
 
 # print(list_events('1'))
