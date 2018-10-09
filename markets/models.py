@@ -29,11 +29,12 @@ class Market(models.Model):
         return '{0} {1}'.format(self.event_name, self.market_name)
     
     def update(self):
-        market_book = list_market_book(str(self.market_id))
+        market_book = list_market_book(self.market_id)
         runners = Runner.objects.filter(market=self.id).order_by('sort_priority')
         count = 0
         for runner in runners:
             runner.latest_odds = market_book['runners'][count]['lastPriceTraded']
+            runner.save()
             count += 1
         self.last_updated = datetime.datetime.now(pytz.timezone('UTC'))
 
