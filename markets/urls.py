@@ -23,4 +23,16 @@ urlpatterns = [
         views.update_market,
         name='update_market'
         ),
+    # Settle market
+    path(
+        'settle_market/<str:market_id>/',
+        views.settle_market,
+        name='settle_market'
+        ),
+    # View markets
+    path(
+        'view_markets/<str:sport>/',
+        views.view_markets,
+        name='view_markets'
+        ),
 ]

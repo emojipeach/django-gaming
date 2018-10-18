@@ -1,0 +1,19 @@
+{% extends "markets/layout.html" %}
+
+{% block content %}
+
+{{ bet.selection_name }} - {{ bet.odds }}
+<br>
+Please confirm bet amount within 120 seconds.
+<br>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'bets:place_bet' bet.id %}">
+  
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Place bet</button>
+    
+</form>
+  
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import render
 
 from api_viewer.utils import list_full_market_info
+from bets.models import Bet
 from markets.models import Market
 from markets.models import Runner
 
@@ -75,3 +76,33 @@ def update_market(request, market_id):
         'runners':runners,
         }
     return render(request, 'markets/view_market.html', context)
+
+
+def settle_market(request, market_id):
+    market = Market.objects.get(market_id=market_id)
+    market.settle()
+    if market.settled is True:
+        bets = Bet.objects.filter(market=market.id)
+        county = 0
+        for bet in bets:
+            bet.settle()
+            county += 1
+    
+    runners = Runner.objects.filter(market=market.id).order_by('sort_priority')
+    
+    context = {
+        'market': market,
+        'runners':runners,
+        }
+    return render(request, 'markets/view_market.html', context)
+
+
+def view_markets(request, sport):
+    markets = Market.objects.filter(sport__iexact=sport)
+    for market in markets:
+        market.runners = Runner.objects.filter(market=market.id).order_by('sort_priority')
+
+    context = {
+        'markets': markets,
+        }
+    return render(request, 'markets/view_markets.html', context)

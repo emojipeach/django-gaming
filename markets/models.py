@@ -1,4 +1,5 @@
 import datetime
+import logging
 import pytz
 
 from uuid import uuid4
@@ -6,6 +7,8 @@ from uuid import uuid4
 from django.db import models
 
 from api_viewer.utils import list_market_book
+
+logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
 
 
 class Market(models.Model):
@@ -38,6 +41,24 @@ class Market(models.Model):
             runner.save()
             count += 1
         self.last_updated = datetime.datetime.now(pytz.timezone('UTC'))
+        return True
+
+    def settle(self):
+        market_book = list_market_book(self.market_id)
+        try:
+            market_book['runners'][0]['status']
+            runners = Runner.objects.filter(market=self.id).order_by('sort_priority')
+            for runner in runners:
+                count = 0
+                while runner.selection_id != market_book['runners'][count]['selectionId']:
+                    count += 1
+                runner.status = market_book['runners'][count]['status']
+                runner.save(update_fields=['status'])
+        except KeyError:
+            return False
+        self.settled = True
+        self.save(update_fields=['settled'])
+        return True
 
 
 class Runner(models.Model):
@@ -48,6 +69,7 @@ class Runner(models.Model):
     selection_name = models.CharField(max_length=50)
     sort_priority = models.IntegerField()
     latest_odds = models.DecimalField(max_digits=6, decimal_places=2)
+    status = models.CharField(max_length=20, default="ACTIVE")
     
     def __str__(self):
         return self.selection_name

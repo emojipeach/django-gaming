@@ -1,0 +1,28 @@
+{% extends "markets/layout.html" %}
+
+{% block content %}
+
+{% for bet in bets %}
+
+{{ bet.id }}
+<br>
+{{ bet.odds }}
+<br>
+{{ bet.amount }}
+<br>
+{{ bet.selection_name }}
+<br>
+{{ bet.status }}
+<br>
+{{ bet.payout_amount }}
+<br>
+{{ bet.market.start_time }}
+<br>
+{{ bet.market.market_id }}
+<br>
+<br>
+
+{% endfor %}
+
+{% endblock %}
+

@@ -7,4 +7,7 @@
 {{ market.start_time }}
 <br>
 
+<a href="{% url 'markets:view_market' market.market_id %}">View market {{ market }}</a>
+<br>
+
 {% endblock %}

@@ -11,11 +11,16 @@
 Last updated: {{ market.last_updated }}
 <br>
 
+Market settled:
+{{ market.settled }}
+
 <br>
 
 {% for runner in runners %}
   {{ runner.selection_name }} - 
-  {{ runner.latest_odds }}
+  {{ runner.latest_odds }} - {{ runner.status }}
+  <br>
+  <a href="{% url 'bets:place_bet' runner.id %}">Place bet {{ runner }}</a>
   <br>
 {% endfor %}
 

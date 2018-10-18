@@ -1,0 +1,24 @@
+{% for market in markets %}
+
+{{ market.sport }}
+<br>
+
+{{ market }}
+<br>
+
+Last updated: {{ market.last_updated }}
+<br>
+
+{% for runner in market.runners %}
+  {{ runner.selection_name }} - 
+  {{ runner.latest_odds }}
+  <br>
+{% endfor %}
+
+<br>
+
+<a href="{% url 'markets:view_market' market.market_id %}">View market {{ market }}</a>
+<br>
+
+
+{% endfor %}
